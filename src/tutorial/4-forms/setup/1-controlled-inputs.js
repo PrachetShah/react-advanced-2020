@@ -8,11 +8,22 @@ import React, { useState } from "react";
 const ControlledInputs = () => {
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
+  const [people, setpeople] = useState([]);
 
   const handleSubmit = (e) => {
     // Prevents defualt behaviour of webpage of reloading once submit button is pressed
     e.preventDefault();
-    console.log(firstName, email);
+    if (firstName && email) {
+      const person = { id: new Date().getTime().toString(), firstName, email };
+      console.log(person);
+      setpeople((people) => {
+        return [...people, person];
+      });
+      setFirstName("");
+      setEmail("");
+    } else {
+      console.log("Empty values");
+    }
   };
   return (
     <>
@@ -41,6 +52,15 @@ const ControlledInputs = () => {
           </div>
           <button type="submit">Add Person</button>
         </form>
+        {people.map((person, index) => {
+          const { id, firstName, email } = person;
+          return (
+            <div className="item" key={id}>
+              <h4>{firstName}</h4>
+              <p>{email}</p>
+            </div>
+          );
+        })}
       </article>
     </>
   );
