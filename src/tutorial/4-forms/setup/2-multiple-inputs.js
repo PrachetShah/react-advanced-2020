@@ -17,6 +17,7 @@ const ControlledInputs = () => {
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
+    // First get all old values using spread operator then use dynamic JS to set e.target.name as e.target.value
     setPerson({ ...person, [name]: value });
   };
   const handleSubmit = (e) => {
